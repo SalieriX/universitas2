@@ -1,4 +1,4 @@
-package co.edu.poli.ces3.universitas.dao;
+package model;
 
 public class Enrollment {
     private Long id;
@@ -19,5 +19,3 @@ public class Enrollment {
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
 }
-
-

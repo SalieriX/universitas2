@@ -1,10 +1,8 @@
-package co.edu.poli.ces3.universitas.servlet;
-import co.edu.poli.ces3.universitas.database.ConexionMySql;
-import co.edu.poli.ces3.universitas.dao.*;
+package controller;
 
-
+import model.Enrollment;
+import dao.EnrollmentDao;
 import com.google.gson.Gson;
-
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,7 +24,7 @@ public class EnrollmentServlet extends HttpServlet {
         enrollmentDao = new EnrollmentDao();
     }
 
-    @Override
+   
     protected void doPatch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String pathInfo = request.getPathInfo();
         if (pathInfo == null || pathInfo.equals("/")) {
