@@ -14,7 +14,7 @@ public class ConexionMySql {
     private String nameDatabase;
     private Connection cnn;
 
-    public ConexionMySql(){
+    public ConexionMySql(){ON
         this.user = "root";
         password = "";
         port = 3306;
@@ -34,6 +34,62 @@ public class ConexionMySql {
             throw new RuntimeException(e);
         }
     }
+
+    //consultas enrollment del taller 5
+
+//consulta para obtener los enrrollment
+
+    public Enrollment getEnrollment(Long userId) throws SQLException {
+        Enrollment enrollment = null;
+        String sql = "SELECT * FROM enrollments WHERE user_id = ?";
+
+        connect();
+
+        PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+        statement.setLong(1, userId);
+
+        ResultSet resultSet = statement.executeQuery();
+
+        if (resultSet.next()) {
+            Long id = resultSet.getLong("id");
+            String courseName = resultSet.getString("course_name");
+            String semester = resultSet.getString("semester");
+            String status = resultSet.getString("status");
+
+            enrollment = new Enrollment();
+            enrollment.setId(id);
+            enrollment.setUserId(userId);
+            enrollment.setCourseName(courseName);
+            enrollment.setSemester(semester);
+            enrollment.setStatus(status);
+        }
+
+        resultSet.close();
+        statement.close();
+
+        disconnect();
+
+        return enrollment;
+    }
+
+//consulta para actualizar los enrollment
+
+    public boolean updateEnrollment(Enrollment enrollment) throws SQLException {
+        String sql = "UPDATE enrollments SET course_name = ?, semester = ?, status = ? WHERE user_id = ?";
+        connect();
+
+        PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+        statement.setString(1, enrollment.getCourseName());
+        statement.setString(2, enrollment.getSemester());
+        statement.setString(3, enrollment.getStatus());
+        statement.setLong(4, enrollment.getUserId());
+
+        boolean rowUpdated = statement.executeUpdate() > 0;
+        statement.close();
+        disconnect();
+        return rowUpdated;
+    }
+}
 
     public List<User> getUsers() throws SQLException {
         String sql = "SELECT * FROM users";
@@ -164,3 +220,6 @@ public class ConexionMySql {
         }
     }
 }
+
+
+

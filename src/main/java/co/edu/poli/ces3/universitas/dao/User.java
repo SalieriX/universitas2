@@ -22,7 +22,6 @@ public class User {
         this.updatedAt = updatedAt;
         this.deteledAt = deteledAt;
     }
-    
 
     public User(String name, String lastName) {
         this.name = name;
