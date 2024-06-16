@@ -24,7 +24,7 @@ public class EnrollmentServlet extends HttpServlet {
         enrollmentDao = new EnrollmentDao();
     }
 
-   
+
     protected void doPatch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String pathInfo = request.getPathInfo();
         if (pathInfo == null || pathInfo.equals("/")) {
